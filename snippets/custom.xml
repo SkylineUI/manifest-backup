@@ -13,6 +13,10 @@
            fetch="https://gitlab.com/PixelOS-Devices"
            revision="refs/heads/fourteen" />
 
+  <remote name="Skyline"
+          fetch="https://github.com/SkylineUI"
+          revision="refs/heads/aosp-14" />
+
   <!-- Rootdir -->
   <project path="bionic" name="bionic" groups="pdk" remote="PixelOS" />
 
@@ -20,7 +24,7 @@
   <project path="bootable/recovery" name="bootable_recovery" groups="pdk" remote="PixelOS" />
 
   <!-- Build -->
-  <project path="build/make" name="build" groups="pdk" remote="PixelOS">
+  <project path="build/make" name="build" groups="pdk" remote="Skyline">
     <linkfile dest="build/CleanSpec.mk" src="CleanSpec.mk" />
     <linkfile dest="build/buildspec.mk.default" src="buildspec.mk.default" />
     <linkfile dest="build/core" src="core" />
@@ -28,7 +32,7 @@
     <linkfile dest="build/target" src="target" />
     <linkfile dest="build/tools" src="tools" />
   </project>
-  <project path="build/soong" name="build_soong" groups="pdk,tradefed" remote="PixelOS">
+  <project path="build/soong" name="build_soong" groups="pdk,tradefed" remote="Skyline">
     <linkfile dest="Android.bp" src="root.bp" />
     <linkfile dest="bootstrap.bash" src="bootstrap.bash" />
   </project>
@@ -45,7 +49,7 @@
   <project path="hardware/google/pixel-sepolicy" name="hardware_google_pixel-sepolicy" groups="generic_fs,pixel" remote="PixelOS" />
 
   <!-- Packages -->
-  <project path="packages/apps/Settings" name="packages_apps_Settings" groups="pdk-fs" remote="PixelOS" />
+  <project path="packages/apps/Settings" name="packages_apps_Settings" groups="pdk-fs" remote="Skyline" />
   <project path="packages/modules/Connectivity" name="packages_modules_Connectivity" groups="pdk" remote="PixelOS" />
   <project path="packages/services/Telecomm" name="packages_services_Telecomm" remote="PixelOS" />
 
@@ -65,7 +69,8 @@
   <project path="packages/apps/Updates" name="packages_apps_Updates" remote="PixelOS" />
 
   <!-- Vendor -->
-  <project path="vendor/aosp" name="vendor_aosp" remote="PixelOS" />
+  <project path="vendor/aosp" name="vendor_aosp" remote="Skyline" />
+  <project path="vendor/extra" name="vendor_extra" remote="Skyline" />
   <project path="vendor/custom-preference" name="vendor_custom-preference" remote="PixelOS" />
   <project path="vendor/gms" name="vendor_gms" clone-depth="1" remote="PixelOS-Devices-Gitlab" />
 

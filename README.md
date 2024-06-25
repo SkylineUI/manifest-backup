@@ -1,38 +1,70 @@
-# PixelOS
+![SkylineUI](https://github.com/SkylineUI/manifest/raw/aosp-14/SkylineUIBanner.png)
 
- Getting Started
----------------
-To get started with the PixelOS sources, you'll need to get
-familiar with [Git and Repo](https://source.android.com/setup/build/downloading).
+# Manifest SkylineUI #
 
- To initialize your local repository, use command:
+### Install Git LFS ###
 
-```bash
-repo init -u https://github.com/PixelOS-AOSP/manifest.git -b fourteen --git-lfs
-```
+It is necessary to install Git LFS to avoid problems with gapps and repositories that are uploaded with Git LFS.
 
-Then sync up:
+*Avoid this step if you already have Git LFS installed*.
 
 ```bash
-repo sync
+sudo apt install git-lfs
+git lfs install
 ```
 
-Building the System
--------------------
- Initialize the ROM environment with the envsetup.sh script.
+### Sync SkylineUI Source ###
 
 ```bash
-. build/envsetup.sh
+# Initialize local repository
+
+mkdir SkylineUI
+cd SkylineUI
 ```
 
-Lunch your device after cloning all device sources if needed.
+- Repo Init Source
+```bash
+repo init -u https://github.com/SkylineUI/manifest -b aosp-14 --git-lfs
+```
+
+Now we proceed with the synchronization of the source with the following command:
+```bash
+repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
+```
+**Note:** To save space and reduce download time during the synchronization process, you can also pass `--depth 1` to the `repo sync` command. However, using `--depth 1` will result in the repositories being synced without any commit history.
+
+### Build ###
 
 ```bash
-lunch aosp_devicecodename-ap2a-buildtype
+
+# Set up environment
+$ . build/envsetup.sh
+
+# Choose a target
+$ lunch aosp_$device-ap2a-userdebug
+
+# Build the code
+$ mka bacon -j$(nproc --all)
 ```
 
-Start compilation
+# Build Flags
+It will be your decision and if the device supports it `true/false` any of the following flags
 
-```bash
-mka bacon
-```
+`You must add these flags in aosp_$device.mk`
+
+| Flag                          |Function                       |
+|-------------------------------|-------------------------------|
+TARGET_BOOT_ANIMATION_RES := 1080 | Specifies the resolution of the boot animation |
+TARGET_FACE_UNLOCK_SUPPORTED := true | To use Face Unlock |
+TARGET_CALL_RECORDING_SUPPORTED := true | To record calls on the Google dialer |
+PRODUCT_NO_CAMERA := false | Use `false` to remove Aperture |
+
+# Credits:
+
+| Projects                      |
+|-------------------------------|
+| **Android Open Source Project** |
+| [**PixelOS**](https://github.com/PixelOS-AOSP) |
+| [**LineageOS**](https://github.com/LineageOS) |
+| [**DerpFest**](https://github.com/DerpFest-AOSP) |
+| [**YAAP**](https://github.com/yaap) |
